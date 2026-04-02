@@ -24,6 +24,8 @@ load_dotenv()
 try:
     posgresql_engine = create_engine(os.getenv('DB_URL'))
     dataset = pd.read_csv("./events.csv", sep=',', header=0)
+    dataset['status'] = 'processed' 
+    dataset.to_csv('processed_events.csv', index=False)
     dataset.to_sql('w3t_p', posgresql_engine, if_exists='replace')
 except:
     pass
